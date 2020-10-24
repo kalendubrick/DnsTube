@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
 
 namespace DnsTube
@@ -39,7 +38,7 @@ namespace DnsTube
 			return publicIpAddress;
 		}
 
-		public static GithubRelease GetLatestRelease(TelemetryClient tc)
+		public static GithubRelease GetLatestRelease()
 		{
 			var url = "https://api.github.com/repos/drittich/DnsTube/releases/latest";
 
@@ -52,9 +51,8 @@ namespace DnsTube
 					var response = client.GetStringAsync(url).Result;
 					release = JsonConvert.DeserializeObject<GithubRelease>(response);
 				}
-				catch (Exception e)
+				catch (Exception)
 				{
-					tc.TrackException(e);
 				}
 			return release;
 		}
