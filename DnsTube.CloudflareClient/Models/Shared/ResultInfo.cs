@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains paging information about response from the Cloudflare API.
     /// </summary>
-    class ResultMetadata
+    public class ResultInfo
     {
         /// <summary>
         /// Gets or sets the result page number.
