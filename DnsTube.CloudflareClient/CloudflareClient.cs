@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DnsTube.CloudflareClient.Models.Shared;
 using DnsTube.CloudflareClient.Models.Zone;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DnsTube.CloudflareClient
 {
@@ -65,7 +67,7 @@ namespace DnsTube.CloudflareClient
                     var content = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<ListSuccessResponse>(content);
 
-                    return result.Result as IEnumerable<Zone>;
+                    return result.Result.Select(z => (z as JObject).ToObject<Zone>());
                 }
                 else
                 {
