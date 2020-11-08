@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DnsTube.CloudflareClient.Models.Zone
 {
-    class Zone
+    public class Zone
     {
         /// <summary>
         /// Gets or sets the zone identifier.
