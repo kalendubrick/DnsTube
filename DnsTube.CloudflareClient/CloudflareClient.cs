@@ -1,7 +1,10 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
-
-using DnsTube.CloudflareClient.Models;
+using System.Threading.Tasks;
+using DnsTube.CloudflareClient.Models.Shared;
+using DnsTube.CloudflareClient.Models.Zone;
+using Newtonsoft.Json;
 
 namespace DnsTube.CloudflareClient
 {
@@ -13,6 +16,14 @@ namespace DnsTube.CloudflareClient
         private readonly string _apiKey;
         private readonly string _emailAddress;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CloudflareClient"/> class.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> with which to perform requests.</param>
+        /// <param name="token">The Cloudflare token with appropriate permissions to perform actions.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="client"/> or <paramref name="token"/> are null.
+        /// </exception>
         public CloudflareClient(HttpClient client, string token)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
@@ -22,6 +33,15 @@ namespace DnsTube.CloudflareClient
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CloudflareClient"/> class.
+        /// </summary>
+        /// <param name="client">The <see cref="HttpClient"/> with which to perform requests.</param>
+        /// <param name="apiKey">The global api key for the Cloudflare account</param>
+        /// <param name="emailAddress">The email address associated with the Cloudflare account</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="client"/>, <paramref name="apiKey"/>, or <paramref name="emailAddress"/> are null.
+        /// </exception>
         public CloudflareClient(HttpClient client, string apiKey, string emailAddress)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
